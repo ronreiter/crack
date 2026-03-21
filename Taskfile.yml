@@ -16,6 +16,7 @@ env:
   APPLE_API_KEY_ID: 2ZR5277S92
   APPLE_API_ISSUER: afb89f06-eb3e-4054-a8a4-fc134c6ae859
   APPLE_API_KEY: "{{.HOME}}/private_keys/AuthKey_2ZR5277S92.p8"
+  PATH: /usr/bin:/bin:/usr/sbin:/sbin:/usr/local/bin:/opt/homebrew/bin
 
 tasks:
   default:
