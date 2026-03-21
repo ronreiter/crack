@@ -1,0 +1,225 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Crack - Squeaky MacBook Lid</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'SF Pro Display', 'Helvetica Neue', sans-serif;
+            background: linear-gradient(135deg, #1a1a2e 0%, #16213e 50%, #0f3460 100%);
+            color: #e0e0e0;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+        .hero {
+            text-align: center;
+            padding: 80px 20px 40px;
+            max-width: 700px;
+        }
+        .icon {
+            width: 180px;
+            height: 180px;
+            border-radius: 36px;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.4), 0 0 40px rgba(194, 139, 60, 0.15);
+            margin-bottom: 32px;
+            transition: transform 0.3s ease;
+        }
+        .icon:hover {
+            transform: scale(1.05) rotate(-2deg);
+        }
+        h1 {
+            font-size: 3.5rem;
+            font-weight: 800;
+            background: linear-gradient(135deg, #c28b3c, #e8c068, #c28b3c);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            margin-bottom: 12px;
+            letter-spacing: -1px;
+        }
+        .tagline {
+            font-size: 1.3rem;
+            color: #a0a0b0;
+            margin-bottom: 40px;
+            line-height: 1.6;
+        }
+        .download-btn {
+            display: inline-block;
+            padding: 16px 40px;
+            background: linear-gradient(135deg, #c28b3c, #a06b2a);
+            color: white;
+            text-decoration: none;
+            border-radius: 12px;
+            font-size: 1.1rem;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            box-shadow: 0 8px 30px rgba(194, 139, 60, 0.3);
+        }
+        .download-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 12px 40px rgba(194, 139, 60, 0.4);
+        }
+        .version {
+            margin-top: 12px;
+            font-size: 0.85rem;
+            color: #666;
+        }
+        .features {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+            gap: 24px;
+            max-width: 800px;
+            padding: 40px 20px 60px;
+            width: 100%;
+        }
+        .feature {
+            background: rgba(255,255,255,0.05);
+            border: 1px solid rgba(255,255,255,0.08);
+            border-radius: 16px;
+            padding: 28px;
+            text-align: center;
+            backdrop-filter: blur(10px);
+            transition: transform 0.2s ease;
+        }
+        .feature:hover {
+            transform: translateY(-4px);
+        }
+        .feature-icon {
+            font-size: 2.2rem;
+            margin-bottom: 12px;
+        }
+        .feature h3 {
+            font-size: 1rem;
+            font-weight: 600;
+            margin-bottom: 8px;
+            color: #e8c068;
+        }
+        .feature p {
+            font-size: 0.9rem;
+            color: #888;
+            line-height: 1.5;
+        }
+        .sounds {
+            max-width: 700px;
+            padding: 20px;
+            text-align: center;
+        }
+        .sounds h2 {
+            font-size: 1.5rem;
+            color: #e8c068;
+            margin-bottom: 16px;
+        }
+        .sound-grid {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+            justify-content: center;
+        }
+        .sound-tag {
+            background: rgba(194, 139, 60, 0.15);
+            border: 1px solid rgba(194, 139, 60, 0.3);
+            border-radius: 20px;
+            padding: 6px 16px;
+            font-size: 0.85rem;
+            color: #e8c068;
+        }
+        footer {
+            padding: 40px 20px;
+            text-align: center;
+            color: #555;
+            font-size: 0.85rem;
+        }
+        footer a {
+            color: #c28b3c;
+            text-decoration: none;
+        }
+        .screenshot {
+            max-width: 320px;
+            margin: 20px auto;
+            background: rgba(255,255,255,0.05);
+            border-radius: 12px;
+            padding: 16px;
+            border: 1px solid rgba(255,255,255,0.08);
+        }
+        .screenshot p {
+            color: #888;
+            font-size: 0.85rem;
+            margin-top: 8px;
+        }
+        .req {
+            margin-top: 24px;
+            font-size: 0.85rem;
+            color: #666;
+        }
+    </style>
+</head>
+<body>
+    <div class="hero">
+        <img src="icon.png" alt="Crack App Icon" class="icon">
+        <h1>Crack</h1>
+        <p class="tagline">
+            Turn your MacBook into a squeaky door.<br>
+            Every lid movement triggers a satisfying creak.
+        </p>
+        <a href="https://github.com/ronreiter/crack/releases/latest" class="download-btn">
+            Download for macOS
+        </a>
+        <p class="version">Requires macOS 13.0 or later &middot; Apple Silicon</p>
+        <p class="req">Free &amp; open source</p>
+    </div>
+
+    <div class="features">
+        <div class="feature">
+            <div class="feature-icon">🚪</div>
+            <h3>Lid-Triggered Sound</h3>
+            <p>Uses the built-in lid angle sensor to detect movement in real-time at 60fps.</p>
+        </div>
+        <div class="feature">
+            <div class="feature-icon">🎵</div>
+            <h3>Variable Pitch</h3>
+            <p>Sound playback speed changes with lid velocity for a realistic squeaky door effect.</p>
+        </div>
+        <div class="feature">
+            <div class="feature-icon">🎛️</div>
+            <h3>Menu Bar App</h3>
+            <p>Lives in your menu bar. Toggle on/off, adjust volume, and pick your sound.</p>
+        </div>
+        <div class="feature">
+            <div class="feature-icon">🔊</div>
+            <h3>18 Built-in Sounds</h3>
+            <p>From door cracks to singing voices, boings, zaps, and more.</p>
+        </div>
+    </div>
+
+    <div class="sounds">
+        <h2>Included Sounds</h2>
+        <div class="sound-grid">
+            <span class="sound-tag">Crack 2</span>
+            <span class="sound-tag">Crack 3</span>
+            <span class="sound-tag">Crack 4</span>
+            <span class="sound-tag">Crack 5</span>
+            <span class="sound-tag">Crack 6</span>
+            <span class="sound-tag">Crack 7</span>
+            <span class="sound-tag">Creaky</span>
+            <span class="sound-tag">Groan</span>
+            <span class="sound-tag">Boing</span>
+            <span class="sound-tag">Whistle</span>
+            <span class="sound-tag">Zap</span>
+            <span class="sound-tag">Bells</span>
+            <span class="sound-tag">Cellos</span>
+            <span class="sound-tag">Bubbles</span>
+            <span class="sound-tag">Wobble</span>
+            <span class="sound-tag">Boing Voice</span>
+            <span class="sound-tag">Bahh</span>
+            <span class="sound-tag">Bad News</span>
+        </div>
+    </div>
+
+    <footer>
+        <p>Made by <a href="https://github.com/ronreiter">Ron Reiter</a> &middot; <a href="https://github.com/ronreiter/crack">Source on GitHub</a></p>
+    </footer>
+</body>
+</html>

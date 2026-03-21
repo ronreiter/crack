@@ -1,0 +1,20 @@
+# Xcode
+build/
+DerivedData/
+*.xcuserdata/
+*.xcworkspace/xcuserdata/
+xcuserdata/
+
+# macOS
+.DS_Store
+*.swp
+*~
+
+# Debug
+debug_sensor.swift
+debug_audio.swift
+crack_debug.log
+
+# Task
+.task/
+squeak.m4a

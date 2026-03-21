@@ -1,0 +1,430 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 56;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		AA100001000000000001 /* main.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA200001000000000001 /* main.swift */; };
+		AA100001000000000002 /* LidAngleSensor.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA200001000000000002 /* LidAngleSensor.swift */; };
+		AA100001000000000003 /* SqueakAudioEngine.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA200001000000000003 /* SqueakAudioEngine.swift */; };
+		AA100001000000000004 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = AA200001000000000004 /* Assets.xcassets */; };
+		AA100001000000000006 /* crack2.m4a in Resources */ = {isa = PBXBuildFile; fileRef = AA200001000000000010 /* crack2.m4a */; };
+		AA100001000000000008 /* IOKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AA200001000000000008 /* IOKit.framework */; };
+		AA100001000000000009 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA200001000000000011 /* AppDelegate.swift */; };
+		BB100001000000000001 /* badnews.m4a in Resources */ = {isa = PBXBuildFile; fileRef = BB200001000000000001 /* badnews.m4a */; };
+		BB100001000000000002 /* bahh.m4a in Resources */ = {isa = PBXBuildFile; fileRef = BB200001000000000002 /* bahh.m4a */; };
+		BB100001000000000003 /* bells.m4a in Resources */ = {isa = PBXBuildFile; fileRef = BB200001000000000003 /* bells.m4a */; };
+		BB100001000000000004 /* boing-voice.m4a in Resources */ = {isa = PBXBuildFile; fileRef = BB200001000000000004 /* boing-voice.m4a */; };
+		BB100001000000000005 /* boing.m4a in Resources */ = {isa = PBXBuildFile; fileRef = BB200001000000000005 /* boing.m4a */; };
+		BB100001000000000006 /* bubbles.m4a in Resources */ = {isa = PBXBuildFile; fileRef = BB200001000000000006 /* bubbles.m4a */; };
+		BB100001000000000007 /* cellos.m4a in Resources */ = {isa = PBXBuildFile; fileRef = BB200001000000000007 /* cellos.m4a */; };
+		BB100001000000000008 /* creaky.m4a in Resources */ = {isa = PBXBuildFile; fileRef = BB200001000000000008 /* creaky.m4a */; };
+		BB100001000000000009 /* groan.m4a in Resources */ = {isa = PBXBuildFile; fileRef = BB200001000000000009 /* groan.m4a */; };
+		BB100001000000000010 /* whistle.m4a in Resources */ = {isa = PBXBuildFile; fileRef = BB200001000000000010 /* whistle.m4a */; };
+		BB100001000000000011 /* wobble.m4a in Resources */ = {isa = PBXBuildFile; fileRef = BB200001000000000011 /* wobble.m4a */; };
+		BB100001000000000012 /* zap.m4a in Resources */ = {isa = PBXBuildFile; fileRef = BB200001000000000012 /* zap.m4a */; };
+		CC100001000000000001 /* crack3.m4a in Resources */ = {isa = PBXBuildFile; fileRef = CC200001000000000001 /* crack3.m4a */; };
+		CC100001000000000002 /* crack4.m4a in Resources */ = {isa = PBXBuildFile; fileRef = CC200001000000000002 /* crack4.m4a */; };
+		CC100001000000000003 /* crack5.m4a in Resources */ = {isa = PBXBuildFile; fileRef = CC200001000000000003 /* crack5.m4a */; };
+		CC100001000000000004 /* crack6.m4a in Resources */ = {isa = PBXBuildFile; fileRef = CC200001000000000004 /* crack6.m4a */; };
+		CC100001000000000005 /* crack7.m4a in Resources */ = {isa = PBXBuildFile; fileRef = CC200001000000000005 /* crack7.m4a */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXFileReference section */
+		AA200001000000000001 /* main.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = main.swift; sourceTree = "<group>"; };
+		AA200001000000000002 /* LidAngleSensor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LidAngleSensor.swift; sourceTree = "<group>"; };
+		AA200001000000000003 /* SqueakAudioEngine.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SqueakAudioEngine.swift; sourceTree = "<group>"; };
+		AA200001000000000004 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		AA200001000000000010 /* crack2.m4a */ = {isa = PBXFileReference; lastKnownFileType = audio.m4a; name = crack2.m4a; path = crack2.m4a; sourceTree = SOURCE_ROOT; };
+		AA200001000000000006 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		AA200001000000000007 /* Crack.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = Crack.entitlements; sourceTree = "<group>"; };
+		AA200001000000000008 /* IOKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = IOKit.framework; path = System/Library/Frameworks/IOKit.framework; sourceTree = SDKROOT; };
+		AA200001000000000009 /* Crack.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Crack.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		AA200001000000000011 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
+		BB200001000000000001 /* badnews.m4a */ = {isa = PBXFileReference; lastKnownFileType = audio.m4a; name = badnews.m4a; path = badnews.m4a; sourceTree = SOURCE_ROOT; };
+		BB200001000000000002 /* bahh.m4a */ = {isa = PBXFileReference; lastKnownFileType = audio.m4a; name = bahh.m4a; path = bahh.m4a; sourceTree = SOURCE_ROOT; };
+		BB200001000000000003 /* bells.m4a */ = {isa = PBXFileReference; lastKnownFileType = audio.m4a; name = bells.m4a; path = bells.m4a; sourceTree = SOURCE_ROOT; };
+		BB200001000000000004 /* boing-voice.m4a */ = {isa = PBXFileReference; lastKnownFileType = audio.m4a; name = "boing-voice.m4a"; path = "boing-voice.m4a"; sourceTree = SOURCE_ROOT; };
+		BB200001000000000005 /* boing.m4a */ = {isa = PBXFileReference; lastKnownFileType = audio.m4a; name = boing.m4a; path = boing.m4a; sourceTree = SOURCE_ROOT; };
+		BB200001000000000006 /* bubbles.m4a */ = {isa = PBXFileReference; lastKnownFileType = audio.m4a; name = bubbles.m4a; path = bubbles.m4a; sourceTree = SOURCE_ROOT; };
+		BB200001000000000007 /* cellos.m4a */ = {isa = PBXFileReference; lastKnownFileType = audio.m4a; name = cellos.m4a; path = cellos.m4a; sourceTree = SOURCE_ROOT; };
+		BB200001000000000008 /* creaky.m4a */ = {isa = PBXFileReference; lastKnownFileType = audio.m4a; name = creaky.m4a; path = creaky.m4a; sourceTree = SOURCE_ROOT; };
+		BB200001000000000009 /* groan.m4a */ = {isa = PBXFileReference; lastKnownFileType = audio.m4a; name = groan.m4a; path = groan.m4a; sourceTree = SOURCE_ROOT; };
+		BB200001000000000010 /* whistle.m4a */ = {isa = PBXFileReference; lastKnownFileType = audio.m4a; name = whistle.m4a; path = whistle.m4a; sourceTree = SOURCE_ROOT; };
+		BB200001000000000011 /* wobble.m4a */ = {isa = PBXFileReference; lastKnownFileType = audio.m4a; name = wobble.m4a; path = wobble.m4a; sourceTree = SOURCE_ROOT; };
+		BB200001000000000012 /* zap.m4a */ = {isa = PBXFileReference; lastKnownFileType = audio.m4a; name = zap.m4a; path = zap.m4a; sourceTree = SOURCE_ROOT; };
+		CC200001000000000001 /* crack3.m4a */ = {isa = PBXFileReference; lastKnownFileType = audio.m4a; name = crack3.m4a; path = crack3.m4a; sourceTree = SOURCE_ROOT; };
+		CC200001000000000002 /* crack4.m4a */ = {isa = PBXFileReference; lastKnownFileType = audio.m4a; name = crack4.m4a; path = crack4.m4a; sourceTree = SOURCE_ROOT; };
+		CC200001000000000003 /* crack5.m4a */ = {isa = PBXFileReference; lastKnownFileType = audio.m4a; name = crack5.m4a; path = crack5.m4a; sourceTree = SOURCE_ROOT; };
+		CC200001000000000004 /* crack6.m4a */ = {isa = PBXFileReference; lastKnownFileType = audio.m4a; name = crack6.m4a; path = crack6.m4a; sourceTree = SOURCE_ROOT; };
+		CC200001000000000005 /* crack7.m4a */ = {isa = PBXFileReference; lastKnownFileType = audio.m4a; name = crack7.m4a; path = crack7.m4a; sourceTree = SOURCE_ROOT; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		AA300001000000000001 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				AA100001000000000008 /* IOKit.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		AA400001000000000001 /* = Project root */ = {
+			isa = PBXGroup;
+			children = (
+				AA400001000000000002 /* Crack */,
+				AA200001000000000010 /* crack2.m4a */,
+				CC200001000000000001 /* crack3.m4a */,
+				CC200001000000000002 /* crack4.m4a */,
+				CC200001000000000003 /* crack5.m4a */,
+				CC200001000000000004 /* crack6.m4a */,
+				CC200001000000000005 /* crack7.m4a */,
+				BB200001000000000001 /* badnews.m4a */,
+				BB200001000000000002 /* bahh.m4a */,
+				BB200001000000000003 /* bells.m4a */,
+				BB200001000000000004 /* boing-voice.m4a */,
+				BB200001000000000005 /* boing.m4a */,
+				BB200001000000000006 /* bubbles.m4a */,
+				BB200001000000000007 /* cellos.m4a */,
+				BB200001000000000008 /* creaky.m4a */,
+				BB200001000000000009 /* groan.m4a */,
+				BB200001000000000010 /* whistle.m4a */,
+				BB200001000000000011 /* wobble.m4a */,
+				BB200001000000000012 /* zap.m4a */,
+				AA400001000000000003 /* Frameworks */,
+				AA400001000000000004 /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		AA400001000000000002 /* Crack */ = {
+			isa = PBXGroup;
+			children = (
+				AA200001000000000001 /* main.swift */,
+				AA200001000000000011 /* AppDelegate.swift */,
+				AA200001000000000002 /* LidAngleSensor.swift */,
+				AA200001000000000003 /* SqueakAudioEngine.swift */,
+				AA200001000000000004 /* Assets.xcassets */,
+				AA200001000000000006 /* Info.plist */,
+				AA200001000000000007 /* Crack.entitlements */,
+			);
+			path = Crack;
+			sourceTree = "<group>";
+		};
+		AA400001000000000003 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				AA200001000000000008 /* IOKit.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		AA400001000000000004 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				AA200001000000000009 /* Crack.app */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		AA500001000000000001 /* Crack */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = AA700001000000000002 /* Build configuration list for PBXNativeTarget "Crack" */;
+			buildPhases = (
+				AA300001000000000002 /* Sources */,
+				AA300001000000000001 /* Frameworks */,
+				AA300001000000000003 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = Crack;
+			productName = Crack;
+			productReference = AA200001000000000009 /* Crack.app */;
+			productType = "com.apple.product-type.application";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		AA600001000000000001 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				BuildIndependentTargetsInParallel = 1;
+				LastSwiftUpdateCheck = 1600;
+				LastUpgradeCheck = 1600;
+				TargetAttributes = {
+					AA500001000000000001 = {
+						CreatedOnToolsVersion = 16.0;
+					};
+				};
+			};
+			buildConfigurationList = AA700001000000000001 /* Build configuration list for PBXProject "Crack" */;
+			compatibilityVersion = "Xcode 14.0";
+			developmentRegion = en;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+				Base,
+			);
+			mainGroup = AA400001000000000001;
+			productRefGroup = AA400001000000000004 /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				AA500001000000000001 /* Crack */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		AA300001000000000003 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				AA100001000000000004 /* Assets.xcassets in Resources */,
+				AA100001000000000006 /* crack2.m4a in Resources */,
+				CC100001000000000001 /* crack3.m4a in Resources */,
+				CC100001000000000002 /* crack4.m4a in Resources */,
+				CC100001000000000003 /* crack5.m4a in Resources */,
+				CC100001000000000004 /* crack6.m4a in Resources */,
+				CC100001000000000005 /* crack7.m4a in Resources */,
+				BB100001000000000001 /* badnews.m4a in Resources */,
+				BB100001000000000002 /* bahh.m4a in Resources */,
+				BB100001000000000003 /* bells.m4a in Resources */,
+				BB100001000000000004 /* boing-voice.m4a in Resources */,
+				BB100001000000000005 /* boing.m4a in Resources */,
+				BB100001000000000006 /* bubbles.m4a in Resources */,
+				BB100001000000000007 /* cellos.m4a in Resources */,
+				BB100001000000000008 /* creaky.m4a in Resources */,
+				BB100001000000000009 /* groan.m4a in Resources */,
+				BB100001000000000010 /* whistle.m4a in Resources */,
+				BB100001000000000011 /* wobble.m4a in Resources */,
+				BB100001000000000012 /* zap.m4a in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		AA300001000000000002 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				AA100001000000000001 /* main.swift in Sources */,
+				AA100001000000000009 /* AppDelegate.swift in Sources */,
+				AA100001000000000002 /* LidAngleSensor.swift in Sources */,
+				AA100001000000000003 /* SqueakAudioEngine.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin XCBuildConfiguration section */
+		AA800001000000000001 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				ENABLE_USER_SCRIPT_SANDBOXING = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu17;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				MACOSX_DEPLOYMENT_TARGET = 13.0;
+				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
+				MTL_FAST_MATH = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = macosx;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "DEBUG $(inherited)";
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+			};
+			name = Debug;
+		};
+		AA800001000000000002 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_USER_SCRIPT_SANDBOXING = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu17;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				MACOSX_DEPLOYMENT_TARGET = 13.0;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				MTL_FAST_MATH = YES;
+				SDKROOT = macosx;
+				SWIFT_COMPILATION_MODE = wholemodule;
+			};
+			name = Release;
+		};
+		AA800001000000000003 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_ENTITLEMENTS = Crack/Crack.entitlements;
+				CODE_SIGN_IDENTITY = "Developer ID Application";
+				CODE_SIGN_STYLE = Manual;
+				COMBINE_HIDPI_IMAGES = YES;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = 8BKF8DY7Y4;
+				ENABLE_HARDENED_RUNTIME = YES;
+				GENERATE_INFOPLIST_FILE = NO;
+				INFOPLIST_FILE = Crack/Info.plist;
+				INFOPLIST_KEY_CFBundleDisplayName = Crack;
+				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.utilities";
+				INFOPLIST_KEY_NSHumanReadableCopyright = "Copyright © 2026 Ron Reiter. All rights reserved.";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/../Frameworks",
+				);
+				MARKETING_VERSION = 1.0.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.ronreiter.crack;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = "";
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+			};
+			name = Debug;
+		};
+		AA800001000000000004 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_ENTITLEMENTS = Crack/Crack.entitlements;
+				CODE_SIGN_IDENTITY = "Developer ID Application";
+				CODE_SIGN_STYLE = Manual;
+				COMBINE_HIDPI_IMAGES = YES;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = 8BKF8DY7Y4;
+				ENABLE_HARDENED_RUNTIME = YES;
+				GENERATE_INFOPLIST_FILE = NO;
+				INFOPLIST_FILE = Crack/Info.plist;
+				INFOPLIST_KEY_CFBundleDisplayName = Crack;
+				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.utilities";
+				INFOPLIST_KEY_NSHumanReadableCopyright = "Copyright © 2026 Ron Reiter. All rights reserved.";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/../Frameworks",
+				);
+				MARKETING_VERSION = 1.0.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.ronreiter.crack;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = "";
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		AA700001000000000001 /* Build configuration list for PBXProject "Crack" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				AA800001000000000001 /* Debug */,
+				AA800001000000000002 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		AA700001000000000002 /* Build configuration list for PBXNativeTarget "Crack" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				AA800001000000000003 /* Debug */,
+				AA800001000000000004 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = AA600001000000000001 /* Project object */;
+}

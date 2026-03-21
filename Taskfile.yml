@@ -1,0 +1,84 @@
+version: '3'
+
+vars:
+  APP_NAME: Crack
+  BUNDLE_ID: com.ronreiter.crack
+  TEAM_ID: 8BKF8DY7Y4
+  SIGN_IDENTITY: "Developer ID Application"
+  VERSION:
+    sh: /usr/libexec/PlistBuddy -c "Print :CFBundleShortVersionString" Crack/Info.plist
+  BUILD_DIR: build
+  APP_PATH: "{{.BUILD_DIR}}/{{.APP_NAME}}.app"
+  DMG_PATH: "{{.BUILD_DIR}}/{{.APP_NAME}}-{{.VERSION}}-arm64.dmg"
+  ZIP_PATH: "{{.BUILD_DIR}}/{{.APP_NAME}}-{{.VERSION}}-arm64.zip"
+
+env:
+  APPLE_API_KEY_ID: 2ZR5277S92
+  APPLE_API_ISSUER: afb89f06-eb3e-4054-a8a4-fc134c6ae859
+  APPLE_API_KEY: "{{.HOME}}/private_keys/AuthKey_2ZR5277S92.p8"
+
+tasks:
+  default:
+    silent: true
+    cmds:
+      - task --list
+
+  clean:
+    desc: Remove build artifacts
+    cmds:
+      - rm -rf {{.BUILD_DIR}}
+      - xcodebuild -project {{.APP_NAME}}.xcodeproj -scheme {{.APP_NAME}} clean
+
+  build:
+    desc: Build the app in Release mode
+    cmds:
+      - mkdir -p {{.BUILD_DIR}}
+      - xcodebuild -project {{.APP_NAME}}.xcodeproj -scheme {{.APP_NAME}} -configuration Release build
+      - rm -rf {{.APP_PATH}}
+      - cp -R ~/Library/Developer/Xcode/DerivedData/Crack-*/Build/Products/Release/{{.APP_NAME}}.app {{.APP_PATH}}
+
+  sign:
+    desc: Code sign the app with Developer ID
+    deps: [build]
+    cmds:
+      - codesign --deep --force --options runtime --sign "{{.SIGN_IDENTITY}}" --timestamp {{.APP_PATH}}
+      - codesign --verify --verbose {{.APP_PATH}}
+
+  notarize:
+    desc: Notarize the app with Apple
+    deps: [sign]
+    cmds:
+      - ditto -c -k --keepParent {{.APP_PATH}} {{.ZIP_PATH}}
+      - xcrun notarytool submit {{.ZIP_PATH}} --key "$APPLE_API_KEY" --key-id "$APPLE_API_KEY_ID" --issuer "$APPLE_API_ISSUER" --wait
+      - xcrun stapler staple {{.APP_PATH}}
+
+  dmg:
+    desc: Create a DMG for distribution
+    deps: [notarize]
+    cmds:
+      - rm -f {{.DMG_PATH}}
+      - hdiutil create -volname "{{.APP_NAME}}" -srcfolder {{.APP_PATH}} -ov -format UDZO {{.DMG_PATH}}
+      - codesign --sign "{{.SIGN_IDENTITY}}" --timestamp {{.DMG_PATH}}
+
+  package:
+    desc: Build, sign, notarize, and create DMG
+    deps: [dmg]
+
+  release:
+    desc: Create a GitHub release with the DMG
+    deps: [package]
+    cmds:
+      - gh release create v{{.VERSION}} --title "{{.APP_NAME}} v{{.VERSION}}" --generate-notes {{.DMG_PATH}}
+
+  install:
+    desc: Build and install to /Applications
+    deps: [build]
+    cmds:
+      - rm -rf /Applications/{{.APP_NAME}}.app
+      - cp -R {{.APP_PATH}} /Applications/{{.APP_NAME}}.app
+
+  run:
+    desc: Build, install, and run
+    deps: [install]
+    cmds:
+      - open /Applications/{{.APP_NAME}}.app
