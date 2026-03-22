@@ -344,7 +344,7 @@ class AppState {
     private func setSensorRate(fast: Bool) {
         sensorTimer?.cancel()
         sensorTimer = DispatchSource.makeTimerSource(queue: sensorQueue)
-        let ms = fast ? 16 : 100  // 60fps vs 10fps
+        let ms = fast ? 33 : 100  // 30fps vs 10fps
         sensorTimer?.schedule(deadline: .now(), repeating: .milliseconds(ms))
         sensorTimer?.setEventHandler { [weak self] in
             self?.pollSensor()
@@ -352,7 +352,7 @@ class AppState {
         sensorTimer?.resume()
         isHighFreq = fast
         if fast {
-            NSLog("[Crack] Sensor → 60fps")
+            NSLog("[Crack] Sensor → 30fps")
         } else {
             NSLog("[Crack] Sensor → 10fps")
         }
