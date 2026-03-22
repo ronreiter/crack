@@ -497,9 +497,9 @@
             const d = Math.abs(a - prevA);
             if (d > 0.3) {
                 const vel = d / dt;
-                const target = 0.15 + vel * 0.008;
+                const target = 0.075 + vel * 0.004;
                 sRate += (target - sRate) * 0.3;
-                const r = Math.max(0.08, Math.min(4.0, sRate));
+                const r = Math.max(0.04, Math.min(2.0, sRate));
 
                 if (!ctx) { loadAudio().then(() => play(r)); }
                 else if (!on) { play(r); }
