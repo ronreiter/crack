@@ -57,7 +57,12 @@ tasks:
     deps: [notarize]
     cmds:
       - /bin/rm -f {{.DMG_PATH}}
-      - /usr/bin/hdiutil create -volname "{{.APP_NAME}}" -srcfolder {{.APP_PATH}} -ov -format UDZO {{.DMG_PATH}}
+      - /bin/rm -rf {{.BUILD_DIR}}/dmg-staging
+      - /bin/mkdir -p {{.BUILD_DIR}}/dmg-staging
+      - /bin/cp -R {{.APP_PATH}} {{.BUILD_DIR}}/dmg-staging/
+      - /bin/ln -s /Applications {{.BUILD_DIR}}/dmg-staging/Applications
+      - /usr/bin/hdiutil create -volname "{{.APP_NAME}}" -srcfolder {{.BUILD_DIR}}/dmg-staging -ov -format UDZO {{.DMG_PATH}}
+      - /bin/rm -rf {{.BUILD_DIR}}/dmg-staging
       - /usr/bin/codesign --sign "{{.SIGN_IDENTITY}}" --timestamp {{.DMG_PATH}}
 
   package:
