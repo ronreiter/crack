@@ -9,8 +9,17 @@ class AppDelegate: NSObject, NSApplicationDelegate {
     let tagEnable = 100
     let tagAbout = 200
     let tagStartup = 250
+    let tagUpdate = 260
     let tagQuit = 300
     let tagSoundBase = 1000
+
+    // Update checker
+    static let currentVersion: String = {
+        Bundle.main.infoDictionary?["CFBundleShortVersionString"] as? String ?? "0.0.0"
+    }()
+    static let repoOwner = "ronreiter"
+    static let repoName = "crack"
+    var latestRelease: (version: String, dmgURL: String, notes: String)?
 
     func applicationDidFinishLaunching(_ notification: Notification) {
         appState = AppState()
@@ -26,6 +35,7 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         }
 
         buildMenu()
+        checkForUpdates(silent: true)
     }
 
     func buildMenu() {
@@ -80,6 +90,13 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         startupItem.state = isLoginItemEnabled() ? .on : .off
         menu.addItem(startupItem)
 
+        let updateTitle = latestRelease != nil ? "Update Available (\(latestRelease!.version))" : "Check for Updates…"
+        let updateItem = NSMenuItem(title: updateTitle, action: #selector(menuItemClicked(_:)), keyEquivalent: "")
+        updateItem.target = self
+        updateItem.tag = tagUpdate
+        updateItem.isEnabled = true
+        menu.addItem(updateItem)
+
         menu.addItem(NSMenuItem.separator())
 
         let aboutItem = NSMenuItem(title: "About Crack", action: #selector(menuItemClicked(_:)), keyEquivalent: "")
@@ -116,11 +133,18 @@ class AppDelegate: NSObject, NSApplicationDelegate {
             toggleLoginItem()
             buildMenu()
 
+        case tagUpdate:
+            if let release = latestRelease, let url = URL(string: release.dmgURL) {
+                NSWorkspace.shared.open(url)
+            } else {
+                checkForUpdates(silent: false)
+            }
+
         case tagAbout:
             NSApp.activate(ignoringOtherApps: true)
             NSApp.orderFrontStandardAboutPanel(options: [
                 .applicationName: "Crack",
-                .applicationVersion: "1.0.0",
+                .applicationVersion: AppDelegate.currentVersion,
                 .credits: NSAttributedString(string: "Makes your MacBook lid sound like a squeaky door.\n\n© 2026 Ron Reiter")
             ])
 
@@ -164,6 +188,84 @@ class AppDelegate: NSObject, NSApplicationDelegate {
 
     @objc func volumeChanged(_ sender: NSSlider) {
         appState.volume = Float(sender.doubleValue)
+    }
+
+    // MARK: - Update Checker
+
+    func checkForUpdates(silent: Bool) {
+        let urlStr = "https://api.github.com/repos/\(AppDelegate.repoOwner)/\(AppDelegate.repoName)/releases/latest"
+        guard let url = URL(string: urlStr) else { return }
+
+        URLSession.shared.dataTask(with: url) { [weak self] data, _, error in
+            guard let self = self, let data = data, error == nil else {
+                if !silent {
+                    DispatchQueue.main.async {
+                        let alert = NSAlert()
+                        alert.messageText = "Update Check Failed"
+                        alert.informativeText = "Could not reach GitHub. Please try again later."
+                        alert.runModal()
+                    }
+                }
+                return
+            }
+
+            guard let json = try? JSONSerialization.jsonObject(with: data) as? [String: Any],
+                  let tagName = json["tag_name"] as? String else { return }
+
+            let latest = tagName.replacingOccurrences(of: "v", with: "")
+            let current = AppDelegate.currentVersion
+
+            if self.isVersion(latest, newerThan: current) {
+                // Find DMG asset
+                var dmgURL = json["html_url"] as? String ?? ""
+                if let assets = json["assets"] as? [[String: Any]] {
+                    for asset in assets {
+                        if let name = asset["name"] as? String, name.hasSuffix(".dmg"),
+                           let downloadURL = asset["browser_download_url"] as? String {
+                            dmgURL = downloadURL
+                            break
+                        }
+                    }
+                }
+                let notes = json["body"] as? String ?? ""
+
+                DispatchQueue.main.async {
+                    self.latestRelease = (version: latest, dmgURL: dmgURL, notes: notes)
+                    self.buildMenu()
+
+                    NSApp.activate(ignoringOtherApps: true)
+                    let alert = NSAlert()
+                    alert.messageText = "Crack \(latest) Available"
+                    alert.informativeText = "You're running \(current). Would you like to download the update?"
+                    alert.addButton(withTitle: "Download")
+                    alert.addButton(withTitle: "Later")
+                    if alert.runModal() == .alertFirstButtonReturn {
+                        if let url = URL(string: dmgURL) {
+                            NSWorkspace.shared.open(url)
+                        }
+                    }
+                }
+            } else if !silent {
+                DispatchQueue.main.async {
+                    let alert = NSAlert()
+                    alert.messageText = "You're Up to Date"
+                    alert.informativeText = "Crack \(current) is the latest version."
+                    alert.runModal()
+                }
+            }
+        }.resume()
+    }
+
+    private func isVersion(_ a: String, newerThan b: String) -> Bool {
+        let aParts = a.split(separator: ".").compactMap { Int($0) }
+        let bParts = b.split(separator: ".").compactMap { Int($0) }
+        for i in 0..<max(aParts.count, bParts.count) {
+            let av = i < aParts.count ? aParts[i] : 0
+            let bv = i < bParts.count ? bParts[i] : 0
+            if av > bv { return true }
+            if av < bv { return false }
+        }
+        return false
     }
 }
 
