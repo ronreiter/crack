@@ -303,17 +303,22 @@ class AppState {
     var engineMap: [String: CreakAudioEngine] = [:]
     var currentEngine: CreakAudioEngine!
 
-    private var timer: Timer?
+    private var sensorTimer: DispatchSourceTimer?
+    private var audioTimer: DispatchSourceTimer?
     private var lastAngle: Double?
     private var lastAngleTime: TimeInterval = 0
     private var lastChangeTime: TimeInterval = 0
     private var smoothedVelocity: Double = 0
     private var logCounter = 0
+    private var isAudioActive = false
+    private var isHighFreq = false
 
     private let silenceDelay: TimeInterval = 0.15
+    private let highFreqDuration: TimeInterval = 10.0
+    private let sensorQueue = DispatchQueue(label: "com.ronreiter.crack.sensor", qos: .userInteractive)
 
     init() {
-        // Build engine map — engines are created lazily on first access
+        // Build engine map
         for p in CrackPreset.all {
             engineMap[p.name] = SynthCrackEngine(preset: p)
         }
@@ -333,12 +338,55 @@ class AppState {
     }
 
     private func startMonitoring() {
-        timer = Timer.scheduledTimer(withTimeInterval: 1.0 / 60.0, repeats: true) { [weak self] _ in
-            self?.update()
+        setSensorRate(fast: false)
+    }
+
+    private func setSensorRate(fast: Bool) {
+        sensorTimer?.cancel()
+        sensorTimer = DispatchSource.makeTimerSource(queue: sensorQueue)
+        let ms = fast ? 16 : 100  // 60fps vs 10fps
+        sensorTimer?.schedule(deadline: .now(), repeating: .milliseconds(ms))
+        sensorTimer?.setEventHandler { [weak self] in
+            self?.pollSensor()
+        }
+        sensorTimer?.resume()
+        isHighFreq = fast
+        if fast {
+            NSLog("[Crack] Sensor → 60fps")
+        } else {
+            NSLog("[Crack] Sensor → 10fps")
         }
     }
 
-    private func update() {
+    private func switchToHighFreq() {
+        guard !isHighFreq else { return }
+        setSensorRate(fast: true)
+    }
+
+    private func switchToLowFreq() {
+        guard isHighFreq else { return }
+        setSensorRate(fast: false)
+    }
+
+    private func startAudioTick() {
+        guard !isAudioActive else { return }
+        isAudioActive = true
+        audioTimer = DispatchSource.makeTimerSource(queue: .main)
+        audioTimer?.schedule(deadline: .now(), repeating: .milliseconds(8))
+        audioTimer?.setEventHandler { [weak self] in
+            self?.currentEngine.tick()
+        }
+        audioTimer?.resume()
+    }
+
+    private func stopAudioTick() {
+        guard isAudioActive else { return }
+        isAudioActive = false
+        audioTimer?.cancel()
+        audioTimer = nil
+    }
+
+    private func pollSensor() {
         guard isEnabled else { return }
 
         let angle = lidSensor.readAngle()
@@ -356,24 +404,37 @@ class AppState {
         let dt = now - lastAngleTime
         guard dt > 0 else { return }
 
-        currentEngine.tick()
-
         let delta = abs(angle - prevAngle)
 
-        if delta > 0.005 {
+        if delta > 0.02 {
             let instantVel = delta / dt
             smoothedVelocity = smoothedVelocity * 0.6 + instantVel * 0.4
             lastChangeTime = now
+
+            // Switch to high frequency polling on movement
+            switchToHighFreq()
 
             let rate = mapVelocityToRate(smoothedVelocity)
             if logCounter % 30 == 0 {
                 NSLog("[Crack] PLAY delta=%.4f° vel=%.3f°/s smooth=%.3f rate=%.2f", delta, instantVel, smoothedVelocity, rate)
             }
             logCounter += 1
-            currentEngine.play(rate: rate, volume: volume)
+            DispatchQueue.main.async { [weak self] in
+                guard let self = self else { return }
+                self.startAudioTick()
+                self.currentEngine.play(rate: rate, volume: self.volume)
+            }
         } else if now - lastChangeTime > silenceDelay {
             smoothedVelocity = 0
-            currentEngine.stop()
+            DispatchQueue.main.async { [weak self] in
+                guard let self = self else { return }
+                self.currentEngine.stop()
+                self.stopAudioTick()
+            }
+            // Drop back to low frequency after no movement for highFreqDuration
+            if isHighFreq && now - lastChangeTime > highFreqDuration {
+                switchToLowFreq()
+            }
         }
     }
 
