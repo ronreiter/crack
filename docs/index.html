@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Crack - Squeaky MacBook Lid</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
     <style>
         * { margin: 0; padding: 0; box-sizing: border-box; }
         body {
@@ -16,443 +17,227 @@
             align-items: center;
             overflow-x: hidden;
         }
-
+        /* Header */
+        .header {
+            width: 100%;
+            padding: 16px 24px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            max-width: 900px;
+        }
+        .header-left {
+            display: flex; align-items: center; gap: 10px;
+            text-decoration: none; color: #e0e0e0;
+        }
+        .header-icon {
+            width: 32px; height: 32px; border-radius: 8px;
+        }
+        .header-title {
+            font-size: 1.1rem; font-weight: 700; color: #e8c068;
+        }
+        .header-right {
+            display: flex; align-items: center; gap: 16px;
+        }
+        .github-btn {
+            display: flex; align-items: center; gap: 8px;
+            padding: 8px 14px;
+            background: rgba(255,255,255,0.08);
+            border: 1px solid rgba(255,255,255,0.12);
+            border-radius: 8px;
+            text-decoration: none; color: #e0e0e0;
+            font-size: 0.85rem; font-weight: 500;
+            transition: all 0.2s;
+        }
+        .github-btn:hover {
+            background: rgba(255,255,255,0.14);
+            border-color: rgba(255,255,255,0.2);
+        }
+        .github-btn svg { fill: #e0e0e0; flex-shrink: 0; }
+        .star-count {
+            display: flex; align-items: center; gap: 4px;
+            color: #e8c068; font-weight: 600;
+        }
+        .star-count svg { fill: #e8c068; }
         .hero {
             text-align: center;
-            padding: 60px 20px 20px;
+            padding: 30px 20px 10px;
             max-width: 700px;
         }
         .icon {
-            width: 140px;
-            height: 140px;
-            border-radius: 30px;
-            box-shadow: 0 20px 60px rgba(0,0,0,0.4), 0 0 40px rgba(194, 139, 60, 0.15);
-            margin-bottom: 24px;
-            transition: transform 0.3s ease;
+            width: 140px; height: 140px; border-radius: 30px;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.4), 0 0 40px rgba(194,139,60,0.15);
+            margin-bottom: 24px; transition: transform 0.3s ease;
         }
         .icon:hover { transform: scale(1.05) rotate(-2deg); }
         h1 {
-            font-size: 3.5rem;
-            font-weight: 800;
+            font-size: 3.5rem; font-weight: 800;
             background: linear-gradient(135deg, #c28b3c, #e8c068, #c28b3c);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            margin-bottom: 12px;
-            letter-spacing: -1px;
+            -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+            margin-bottom: 12px; letter-spacing: -1px;
         }
-        .tagline {
-            font-size: 1.3rem;
-            color: #a0a0b0;
-            margin-bottom: 30px;
-            line-height: 1.6;
-        }
+        .tagline { font-size: 1.3rem; color: #a0a0b0; margin-bottom: 30px; line-height: 1.6; }
         .download-btn {
-            display: inline-block;
-            padding: 16px 40px;
+            display: inline-block; padding: 16px 40px;
             background: linear-gradient(135deg, #c28b3c, #a06b2a);
-            color: white;
-            text-decoration: none;
-            border-radius: 12px;
-            font-size: 1.1rem;
-            font-weight: 600;
-            transition: all 0.3s ease;
-            box-shadow: 0 8px 30px rgba(194, 139, 60, 0.3);
+            color: white; text-decoration: none; border-radius: 12px;
+            font-size: 1.1rem; font-weight: 600; transition: all 0.3s ease;
+            box-shadow: 0 8px 30px rgba(194,139,60,0.3);
         }
-        .download-btn:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 12px 40px rgba(194, 139, 60, 0.4);
+        .download-btn:hover { transform: translateY(-2px); box-shadow: 0 12px 40px rgba(194,139,60,0.4); }
+        .version { margin-top: 12px; font-size: 0.85rem; color: #666; }
+        .req { margin-top: 8px; font-size: 0.85rem; color: #666; }
+
+        /* 3D Canvas */
+        .canvas-wrap {
+            width: 100%; max-width: 600px;
+            padding: 10px 0;
         }
-        .version {
-            margin-top: 12px;
-            font-size: 0.85rem;
-            color: #666;
-        }
-        .req {
-            margin-top: 8px;
-            font-size: 0.85rem;
-            color: #666;
+        #laptopCanvas {
+            width: 100%; height: 360px;
+            display: block;
         }
 
-        /* 3D MacBook */
-        .macbook-section {
-            width: 100%;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            padding: 40px 20px;
+        /* Controls */
+        .controls {
+            display: flex; flex-direction: column; align-items: center; gap: 8px;
+            padding: 0 20px 10px;
         }
-        .macbook-scene {
-            perspective: 1200px;
-            width: 500px;
-            height: 380px;
-            position: relative;
-            margin-bottom: 20px;
-        }
-        .macbook {
-            width: 100%;
-            height: 100%;
-            position: relative;
-            transform-style: preserve-3d;
-            transform: rotateX(-15deg) rotateY(-20deg);
-        }
-
-        /* Base */
-        .macbook-base {
-            position: absolute;
-            bottom: 0;
-            left: 50%;
-            transform: translateX(-50%);
-            width: 340px;
-            height: 220px;
-            transform-style: preserve-3d;
-        }
-        .base-top {
-            position: absolute;
-            width: 340px;
-            height: 220px;
-            background: linear-gradient(145deg, #c0c0c0, #a8a8a8);
-            border-radius: 8px;
-            transform: rotateX(90deg) translateZ(6px);
-            transform-origin: bottom center;
-            box-shadow: inset 0 0 30px rgba(0,0,0,0.1);
-        }
-        .base-front {
-            position: absolute;
-            bottom: 0;
-            width: 340px;
-            height: 12px;
-            background: linear-gradient(to bottom, #b0b0b0, #909090);
-            border-radius: 0 0 4px 4px;
-            transform: translateZ(110px);
-        }
-        .base-bottom {
-            position: absolute;
-            width: 340px;
-            height: 220px;
-            background: #808080;
-            border-radius: 8px;
-            transform: rotateX(90deg) translateZ(-6px);
-            transform-origin: bottom center;
-        }
-        .keyboard {
-            position: absolute;
-            top: 20px;
-            left: 20px;
-            width: 300px;
-            height: 140px;
-            background: linear-gradient(145deg, #2a2a2a, #1a1a1a);
-            border-radius: 4px;
-            transform: rotateX(90deg) translateZ(7px);
-            transform-origin: bottom center;
-            display: grid;
-            grid-template-columns: repeat(15, 1fr);
-            grid-template-rows: repeat(5, 1fr);
-            gap: 2px;
-            padding: 6px;
-        }
-        .key {
-            background: #333;
-            border-radius: 2px;
-            box-shadow: 0 1px 0 #444;
-        }
-        .trackpad {
-            position: absolute;
-            bottom: 20px;
-            left: 50%;
-            transform: translateX(-50%) rotateX(90deg) translateZ(7px);
-            transform-origin: bottom center;
-            width: 120px;
-            height: 70px;
-            background: linear-gradient(145deg, #b8b8b8, #a0a0a0);
-            border-radius: 6px;
-            box-shadow: inset 0 0 10px rgba(0,0,0,0.1);
-        }
-
-        /* Screen / Lid */
-        .macbook-lid {
-            position: absolute;
-            bottom: 0;
-            left: 50%;
-            transform: translateX(-50%);
-            width: 340px;
-            height: 230px;
-            transform-style: preserve-3d;
-            transform-origin: bottom center;
-            /* Default: fully open = -90deg from base plane */
-            transform: translateX(-50%) rotateX(-100deg);
-            transition: none;
-        }
-        .lid-back {
-            position: absolute;
-            width: 340px;
-            height: 230px;
-            background: linear-gradient(145deg, #c0c0c0, #a8a8a8);
-            border-radius: 8px 8px 0 0;
-            backface-visibility: hidden;
-            transform: rotateY(180deg);
-        }
-        .lid-front {
-            position: absolute;
-            width: 340px;
-            height: 230px;
-            background: #111;
-            border-radius: 8px 8px 0 0;
-            backface-visibility: hidden;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-        }
-        .screen {
-            width: 300px;
-            height: 190px;
-            background: linear-gradient(135deg, #1a1a3e 0%, #0a0a2e 100%);
-            border-radius: 4px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            position: relative;
-            overflow: hidden;
-        }
-        .screen-content {
-            text-align: center;
-            z-index: 1;
-        }
-        .screen-content .logo {
-            font-size: 2rem;
-            margin-bottom: 4px;
-        }
-        .screen-content p {
-            font-size: 0.6rem;
-            color: #555;
-        }
-        .screen::before {
-            content: '';
-            position: absolute;
-            top: -50%;
-            left: -50%;
-            width: 200%;
-            height: 200%;
-            background: radial-gradient(ellipse at 30% 30%, rgba(194, 139, 60, 0.08), transparent 60%);
-        }
-        .apple-logo {
-            position: absolute;
-            width: 340px;
-            height: 230px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            transform: rotateY(180deg);
-            backface-visibility: hidden;
-            pointer-events: none;
-        }
-        .apple-logo span {
-            font-size: 2.5rem;
-            opacity: 0.15;
-        }
-
-        /* Shadow on desk */
-        .desk-shadow {
-            width: 400px;
-            height: 40px;
-            background: radial-gradient(ellipse, rgba(0,0,0,0.4), transparent 70%);
-            margin-top: -10px;
-            transition: opacity 0.3s;
-        }
-
-        /* Slider */
-        .slider-container {
-            display: flex;
-            align-items: center;
-            gap: 16px;
-            margin-top: 10px;
-        }
-        .slider-label {
-            font-size: 0.9rem;
-            color: #a0a0b0;
-            min-width: 60px;
-        }
+        .slider-row { display: flex; align-items: center; gap: 14px; }
+        .slider-label { font-size: 0.85rem; color: #666; width: 50px; }
         .lid-slider {
-            -webkit-appearance: none;
-            appearance: none;
-            width: 260px;
-            height: 6px;
-            background: rgba(255,255,255,0.1);
-            border-radius: 3px;
-            outline: none;
-            cursor: pointer;
+            -webkit-appearance: none; appearance: none;
+            width: 280px; height: 6px;
+            background: rgba(255,255,255,0.1); border-radius: 3px; outline: none; cursor: pointer;
         }
         .lid-slider::-webkit-slider-thumb {
-            -webkit-appearance: none;
-            appearance: none;
-            width: 22px;
-            height: 22px;
+            -webkit-appearance: none; width: 22px; height: 22px;
             background: linear-gradient(135deg, #c28b3c, #e8c068);
-            border-radius: 50%;
-            cursor: grab;
-            box-shadow: 0 2px 10px rgba(194, 139, 60, 0.4);
-            transition: transform 0.1s;
-        }
-        .lid-slider::-webkit-slider-thumb:active {
-            cursor: grabbing;
-            transform: scale(1.2);
+            border-radius: 50%; cursor: grab;
+            box-shadow: 0 2px 10px rgba(194,139,60,0.4);
         }
         .lid-slider::-moz-range-thumb {
-            width: 22px;
-            height: 22px;
+            width: 22px; height: 22px;
             background: linear-gradient(135deg, #c28b3c, #e8c068);
-            border-radius: 50%;
-            cursor: grab;
-            border: none;
-            box-shadow: 0 2px 10px rgba(194, 139, 60, 0.4);
+            border-radius: 50%; border: none; cursor: grab;
         }
         .angle-display {
-            font-size: 0.9rem;
-            color: #e8c068;
-            font-weight: 600;
-            min-width: 50px;
-            text-align: right;
-            font-variant-numeric: tabular-nums;
+            font-size: 0.95rem; color: #e8c068; font-weight: 600;
+            width: 48px; text-align: right; font-variant-numeric: tabular-nums;
         }
-        .sound-hint {
-            font-size: 0.8rem;
-            color: #555;
-            margin-top: 8px;
-            transition: color 0.3s;
-        }
-        .sound-hint.active {
-            color: #e8c068;
-        }
+        .sound-hint { font-size: 0.8rem; color: #555; transition: color 0.3s; }
+        .sound-hint.active { color: #e8c068; }
 
-        /* Sounds section */
-        .sounds {
-            max-width: 700px;
-            padding: 40px 20px;
+        /* Features */
+        .features {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 20px;
+            max-width: 800px;
+            padding: 30px 20px 40px;
+            width: 100%;
+        }
+        .feature {
+            background: rgba(255,255,255,0.04);
+            border: 1px solid rgba(255,255,255,0.08);
+            border-radius: 16px;
+            padding: 24px;
             text-align: center;
+            backdrop-filter: blur(10px);
+            transition: transform 0.2s ease, border-color 0.2s;
         }
-        .sounds h2 {
-            font-size: 1.5rem;
-            color: #e8c068;
-            margin-bottom: 16px;
+        .feature:hover {
+            transform: translateY(-4px);
+            border-color: rgba(194,139,60,0.25);
         }
-        .sound-grid {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 8px;
-            justify-content: center;
+        .feature-icon { font-size: 2rem; margin-bottom: 10px; }
+        .feature h3 {
+            font-size: 0.95rem; font-weight: 600; margin-bottom: 6px; color: #e8c068;
         }
-        .sound-tag {
-            background: rgba(194, 139, 60, 0.15);
-            border: 1px solid rgba(194, 139, 60, 0.3);
-            border-radius: 20px;
-            padding: 6px 16px;
-            font-size: 0.85rem;
-            color: #e8c068;
+        .feature p {
+            font-size: 0.85rem; color: #888; line-height: 1.5;
         }
+        footer { padding: 40px 20px; text-align: center; color: #555; font-size: 0.85rem; }
+        footer a { color: #c28b3c; text-decoration: none; }
 
-        footer {
-            padding: 40px 20px;
-            text-align: center;
-            color: #555;
-            font-size: 0.85rem;
-        }
-        footer a {
-            color: #c28b3c;
-            text-decoration: none;
-        }
-
-        @media (max-width: 600px) {
-            .macbook-scene {
-                width: 320px;
-                height: 260px;
-            }
-            .macbook-base, .base-top, .base-front, .base-bottom { width: 220px; }
-            .macbook-base { height: 140px; }
-            .base-top { height: 140px; }
-            .base-bottom { height: 140px; }
-            .macbook-lid, .lid-back, .lid-front { width: 220px; height: 150px; }
-            .keyboard { width: 190px; height: 90px; top: 12px; left: 15px; }
-            .screen { width: 190px; height: 120px; }
-            .trackpad { width: 80px; height: 45px; }
-            .apple-logo { width: 220px; height: 150px; }
-            .lid-slider { width: 180px; }
+        @media (max-width: 480px) {
+            #laptopCanvas { height: 280px; }
+            .lid-slider { width: 200px; }
             h1 { font-size: 2.5rem; }
         }
     </style>
 </head>
 <body>
+    <header class="header">
+        <a href="https://github.com/ronreiter/crack" class="header-left">
+            <img src="icon.png" alt="Crack" class="header-icon">
+            <span class="header-title">Crack</span>
+        </a>
+        <div class="header-right">
+            <a href="https://github.com/ronreiter/crack" class="github-btn">
+                <svg width="18" height="18" viewBox="0 0 16 16"><path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.013 8.013 0 0016 8c0-4.42-3.58-8-8-8z"/></svg>
+                <span>GitHub</span>
+            </a>
+            <div class="star-count" id="starCount">
+                <svg width="14" height="14" viewBox="0 0 16 16"><path d="M8 .25a.75.75 0 01.673.418l1.882 3.815 4.21.612a.75.75 0 01.416 1.279l-3.046 2.97.719 4.192a.75.75 0 01-1.088.791L8 12.347l-3.766 1.98a.75.75 0 01-1.088-.79l.72-4.194L.818 6.374a.75.75 0 01.416-1.28l4.21-.611L7.327.668A.75.75 0 018 .25z"/></svg>
+                <span id="stars">-</span>
+            </div>
+        </div>
+    </header>
+
     <div class="hero">
         <img src="icon.png" alt="Crack App Icon" class="icon">
         <h1>Crack</h1>
-        <p class="tagline">
-            Turn your MacBook into a squeaky door.<br>
-            Every lid movement triggers a satisfying creak.
-        </p>
-        <a href="https://github.com/ronreiter/crack/releases/latest" class="download-btn">
-            Download for macOS
-        </a>
+        <p class="tagline">Turn your MacBook into a squeaky door.<br>Every lid movement triggers a satisfying creak.</p>
+        <a href="https://github.com/ronreiter/crack/releases/latest" class="download-btn">Download for macOS</a>
         <p class="version">Requires macOS 13.0 or later &middot; Apple Silicon</p>
         <p class="req">Free &amp; open source</p>
     </div>
 
-    <div class="macbook-section">
-        <div class="macbook-scene">
-            <div class="macbook">
-                <!-- Base -->
-                <div class="macbook-base">
-                    <div class="base-top"></div>
-                    <div class="base-bottom"></div>
-                    <div class="base-front"></div>
-                    <div class="keyboard" id="keyboard"></div>
-                    <div class="trackpad"></div>
-                </div>
-                <!-- Lid -->
-                <div class="macbook-lid" id="macbookLid">
-                    <div class="lid-front">
-                        <div class="screen">
-                            <div class="screen-content">
-                                <div class="logo">🚪</div>
-                                <p>Crack</p>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="lid-back"></div>
-                    <div class="apple-logo"><span></span></div>
-                </div>
-            </div>
-        </div>
-        <div class="desk-shadow" id="deskShadow"></div>
-
-        <div class="slider-container">
-            <span class="slider-label">Closed</span>
-            <input type="range" class="lid-slider" id="lidSlider" min="0" max="130" value="110">
-            <span class="slider-label" style="text-align: right;">Open</span>
-            <span class="angle-display" id="angleDisplay">110&deg;</span>
-        </div>
-        <p class="sound-hint" id="soundHint">Drag the slider to hear the squeak</p>
+    <div class="canvas-wrap">
+        <canvas id="laptopCanvas"></canvas>
     </div>
 
-    <div class="sounds">
-        <h2>19 Built-in Sounds</h2>
-        <div class="sound-grid">
-            <span class="sound-tag">Squeak</span>
-            <span class="sound-tag">Crack 2</span>
-            <span class="sound-tag">Crack 3</span>
-            <span class="sound-tag">Crack 4</span>
-            <span class="sound-tag">Crack 5</span>
-            <span class="sound-tag">Crack 6</span>
-            <span class="sound-tag">Crack 7</span>
-            <span class="sound-tag">Creaky</span>
-            <span class="sound-tag">Groan</span>
-            <span class="sound-tag">Boing</span>
-            <span class="sound-tag">Whistle</span>
-            <span class="sound-tag">Zap</span>
-            <span class="sound-tag">Bells</span>
-            <span class="sound-tag">Cellos</span>
-            <span class="sound-tag">Bubbles</span>
-            <span class="sound-tag">Wobble</span>
-            <span class="sound-tag">Boing Voice</span>
-            <span class="sound-tag">Bahh</span>
-            <span class="sound-tag">Bad News</span>
+    <div class="controls">
+        <div class="slider-row">
+            <span class="slider-label">Closed</span>
+            <input type="range" class="lid-slider" id="lidSlider" min="0" max="150" value="110" step="0.5">
+            <span class="slider-label" style="text-align:right">Open</span>
+            <span class="angle-display" id="angleTxt">110&deg;</span>
+        </div>
+        <p class="sound-hint" id="hint">Drag the slider to hear the squeak</p>
+    </div>
+
+    <div class="features">
+        <div class="feature">
+            <div class="feature-icon">📐</div>
+            <h3>Lid Angle Sensor</h3>
+            <p>Reads the built-in AppleHID lid sensor at 60fps to detect the slightest movement.</p>
+        </div>
+        <div class="feature">
+            <div class="feature-icon">🎵</div>
+            <h3>Variable Pitch</h3>
+            <p>Playback speed maps to lid velocity — slow creaks and fast snaps sound completely different.</p>
+        </div>
+        <div class="feature">
+            <div class="feature-icon">🔊</div>
+            <h3>7 Synthesized Sounds</h3>
+            <p>Haunted door cracks, cat meows, alien whispers, whale songs, wind effects, and more. All generated in real-time.</p>
+        </div>
+        <div class="feature">
+            <div class="feature-icon">🖥️</div>
+            <h3>Menu Bar App</h3>
+            <p>No dock icon, no windows. Just a tiny menu bar icon to toggle, adjust volume, and pick sounds.</p>
+        </div>
+        <div class="feature">
+            <div class="feature-icon">⚡</div>
+            <h3>Lightweight</h3>
+            <p>Under 1 MB. Near-zero CPU usage. Built natively in Swift with AVAudioEngine.</p>
+        </div>
+        <div class="feature">
+            <div class="feature-icon">🔓</div>
+            <h3>Open Source</h3>
+            <p>MIT licensed. Signed and notarized by Apple. No tracking, no telemetry, no nonsense.</p>
         </div>
     </div>
 
@@ -461,142 +246,280 @@
     </footer>
 
     <script>
-        // Generate keyboard keys
-        const keyboard = document.getElementById('keyboard');
-        for (let i = 0; i < 75; i++) {
-            const key = document.createElement('div');
-            key.className = 'key';
-            keyboard.appendChild(key);
-        }
+    (function() {
+        // === Three.js Laptop ===
+        const canvas = document.getElementById('laptopCanvas');
+        const renderer = new THREE.WebGLRenderer({ canvas, antialias: true, alpha: true });
+        renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+        renderer.shadowMap.enabled = true;
+        renderer.shadowMap.type = THREE.PCFSoftShadowMap;
 
-        const lid = document.getElementById('macbookLid');
-        const slider = document.getElementById('lidSlider');
-        const angleDisplay = document.getElementById('angleDisplay');
-        const soundHint = document.getElementById('soundHint');
-        const shadow = document.getElementById('deskShadow');
+        const scene = new THREE.Scene();
+        const camera = new THREE.PerspectiveCamera(35, canvas.clientWidth / canvas.clientHeight, 0.1, 100);
+        camera.position.set(0, 3.5, 6);
+        camera.lookAt(0, 0.5, 0);
 
-        let prevAngle = parseFloat(slider.value);
-        let audioCtx = null;
-        let audioBuffer = null;
-        let currentSource = null;
-        let gainNode = null;
-        let isPlaying = false;
-        let squeakTimeout = null;
+        // Lights
+        const ambient = new THREE.AmbientLight(0x8888aa, 0.5);
+        scene.add(ambient);
+        const key = new THREE.DirectionalLight(0xffffff, 0.8);
+        key.position.set(3, 5, 4);
+        key.castShadow = true;
+        key.shadow.mapSize.set(1024, 1024);
+        scene.add(key);
+        const fill = new THREE.DirectionalLight(0x4466aa, 0.3);
+        fill.position.set(-3, 3, -2);
+        scene.add(fill);
+        const rim = new THREE.PointLight(0xc28b3c, 0.4, 10);
+        rim.position.set(0, 2, -3);
+        scene.add(rim);
 
-        // Load squeak sound
-        async function initAudio() {
-            audioCtx = new (window.AudioContext || window.webkitAudioContext)();
-            gainNode = audioCtx.createGain();
-            gainNode.connect(audioCtx.destination);
-            try {
-                const resp = await fetch('crack2.m4a');
-                const data = await resp.arrayBuffer();
-                audioBuffer = await audioCtx.decodeAudioData(data);
-            } catch (e) {
-                console.warn('Could not load squeak sound:', e);
-            }
-        }
-
-        function playSqueak(rate) {
-            if (!audioCtx || !audioBuffer) return;
-            if (audioCtx.state === 'suspended') audioCtx.resume();
-
-            // Stop previous if playing
-            if (currentSource) {
-                try { currentSource.stop(); } catch(e) {}
-            }
-
-            currentSource = audioCtx.createBufferSource();
-            currentSource.buffer = audioBuffer;
-            currentSource.loop = true;
-            // Clamp rate between 0.1 and 4.0
-            currentSource.playbackRate.value = Math.max(0.1, Math.min(4.0, rate));
-            currentSource.connect(gainNode);
-            gainNode.gain.value = Math.min(1.0, Math.abs(rate) * 0.5);
-            currentSource.start();
-            isPlaying = true;
-        }
-
-        function stopSqueak() {
-            if (currentSource && isPlaying) {
-                // Fade out quickly
-                if (gainNode) {
-                    gainNode.gain.setTargetAtTime(0, audioCtx.currentTime, 0.02);
-                    setTimeout(() => {
-                        try { currentSource.stop(); } catch(e) {}
-                        isPlaying = false;
-                        gainNode.gain.value = 0.5;
-                    }, 80);
-                }
-            }
-        }
-
-        function updateLid(angle) {
-            // angle: 0 = closed, 130 = fully open
-            // CSS rotation: 0deg = flat on base (closed), -100deg = open
-            const rotation = -(angle / 130) * 100;
-            lid.style.transform = `translateX(-50%) rotateX(${rotation}deg)`;
-            angleDisplay.textContent = `${Math.round(angle)}\u00B0`;
-
-            // Shadow opacity based on lid openness
-            const openness = angle / 130;
-            shadow.style.opacity = 0.3 + openness * 0.5;
-        }
-
-        let lastTime = Date.now();
-        let smoothRate = 0;
-
-        slider.addEventListener('input', (e) => {
-            const angle = parseFloat(e.target.value);
-            const now = Date.now();
-            const dt = (now - lastTime) / 1000;
-            lastTime = now;
-
-            updateLid(angle);
-
-            const delta = Math.abs(angle - prevAngle);
-            const velocity = dt > 0 ? delta / dt : 0;
-
-            if (delta > 0.5) {
-                // Initialize audio on first interaction
-                if (!audioCtx) initAudio().then(() => {
-                    const rate = 0.2 + velocity * 0.01;
-                    playSqueak(rate);
-                });
-
-                // Map velocity to playback rate
-                const rate = 0.2 + velocity * 0.01;
-                smoothRate += (rate - smoothRate) * 0.3;
-
-                if (isPlaying && currentSource) {
-                    currentSource.playbackRate.setTargetAtTime(
-                        Math.max(0.1, Math.min(4.0, smoothRate)),
-                        audioCtx.currentTime, 0.05
-                    );
-                    gainNode.gain.setTargetAtTime(
-                        Math.min(1.0, smoothRate * 0.4),
-                        audioCtx.currentTime, 0.05
-                    );
-                } else {
-                    playSqueak(smoothRate);
-                }
-
-                soundHint.classList.add('active');
-                soundHint.textContent = 'Squeaking...';
-
-                clearTimeout(squeakTimeout);
-                squeakTimeout = setTimeout(() => {
-                    stopSqueak();
-                    soundHint.classList.remove('active');
-                    soundHint.textContent = 'Drag the slider to hear the squeak';
-                }, 100);
-            }
-
-            prevAngle = angle;
+        // Materials
+        const aluminumTop = new THREE.MeshStandardMaterial({
+            color: 0xc8c8cc, metalness: 0.7, roughness: 0.25
+        });
+        const aluminumBottom = new THREE.MeshStandardMaterial({
+            color: 0xa0a0a4, metalness: 0.6, roughness: 0.35
+        });
+        const screenMat = new THREE.MeshStandardMaterial({
+            color: 0x080818, metalness: 0.1, roughness: 0.3, emissive: 0x0a0a20, emissiveIntensity: 0.5
+        });
+        const keyboardMat = new THREE.MeshStandardMaterial({
+            color: 0x1a1a1a, metalness: 0.2, roughness: 0.8
+        });
+        const trackpadMat = new THREE.MeshStandardMaterial({
+            color: 0xb0b0b4, metalness: 0.5, roughness: 0.2
         });
 
-        // Initialize lid position
-        updateLid(parseFloat(slider.value));
+        // Dimensions
+        const W = 3.2, D = 2.2, baseH = 0.08, lidH = 0.06;
+        const screenBorder = 0.12;
+
+        // === Base ===
+        const baseGroup = new THREE.Group();
+
+        // Base body
+        const baseGeo = new THREE.BoxGeometry(W, baseH, D);
+        // Round the edges slightly by scaling
+        const baseMesh = new THREE.Mesh(baseGeo, aluminumTop);
+        baseMesh.castShadow = true;
+        baseMesh.receiveShadow = true;
+        baseGroup.add(baseMesh);
+
+        // Keyboard area (recessed)
+        const kbW = W * 0.82, kbD = D * 0.52;
+        const kbGeo = new THREE.BoxGeometry(kbW, 0.005, kbD);
+        const kbMesh = new THREE.Mesh(kbGeo, keyboardMat);
+        kbMesh.position.set(0, baseH / 2, -D * 0.08);
+        baseGroup.add(kbMesh);
+
+        // Individual key rows (visual detail)
+        const keyW = kbW / 14 - 0.02, keyD2 = kbD / 5 - 0.02;
+        const keyGeo = new THREE.BoxGeometry(keyW, 0.012, keyD2);
+        for (let row = 0; row < 5; row++) {
+            for (let col = 0; col < 14; col++) {
+                const key = new THREE.Mesh(keyGeo, keyboardMat);
+                key.position.set(
+                    -kbW/2 + keyW/2 + col * (kbW/14) + 0.01,
+                    baseH/2 + 0.006,
+                    -D*0.08 - kbD/2 + keyD2/2 + row * (kbD/5) + 0.01
+                );
+                baseGroup.add(key);
+            }
+        }
+
+        // Trackpad
+        const tpW = W * 0.3, tpD = D * 0.3;
+        const tpGeo = new THREE.BoxGeometry(tpW, 0.003, tpD);
+        const tpMesh = new THREE.Mesh(tpGeo, trackpadMat);
+        tpMesh.position.set(0, baseH / 2, D * 0.28);
+        baseGroup.add(tpMesh);
+
+        scene.add(baseGroup);
+
+        // === Lid (pivots at back edge of base) ===
+        const lidPivot = new THREE.Group();
+        lidPivot.position.set(0, baseH / 2, -D / 2); // back edge of base
+
+        const lidGroup = new THREE.Group();
+
+        // Lid body — extends in +Z from pivot so at rotateX=0 it lies flat on base (closed)
+        const lidD = D * 1.04;
+        const lidGeo = new THREE.BoxGeometry(W, lidH, lidD);
+        const lidMesh = new THREE.Mesh(lidGeo, aluminumTop);
+        lidMesh.castShadow = true;
+        lidMesh.position.set(0, 0, lidD / 2);
+        lidGroup.add(lidMesh);
+
+        // Screen on -Y face (faces down when closed = toward keyboard, faces user when open)
+        const scrW = W - screenBorder * 2;
+        const scrD = lidD - screenBorder * 2;
+        const scrGeo = new THREE.BoxGeometry(scrW, 0.005, scrD);
+        const scrMesh = new THREE.Mesh(scrGeo, screenMat);
+        scrMesh.position.set(0, -lidH / 2, lidD / 2);
+        lidGroup.add(scrMesh);
+
+        // Screen glow
+        const glowMat = new THREE.MeshStandardMaterial({
+            color: 0x0a0a20, emissive: 0xc28b3c, emissiveIntensity: 0.15,
+            metalness: 0, roughness: 1, transparent: true, opacity: 0.3
+        });
+        const glowGeo = new THREE.PlaneGeometry(scrW * 0.6, scrD * 0.6);
+        const glowMesh = new THREE.Mesh(glowGeo, glowMat);
+        glowMesh.rotation.x = Math.PI / 2;
+        glowMesh.position.set(0, -lidH / 2 - 0.003, lidD / 2);
+        lidGroup.add(glowMesh);
+
+        // Apple logo on +Y face (visible on top when closed)
+        const logoMat = new THREE.MeshStandardMaterial({
+            color: 0xd0d0d0, metalness: 0.8, roughness: 0.15, emissive: 0xffffff, emissiveIntensity: 0.05
+        });
+        const logoGeo = new THREE.CircleGeometry(0.15, 32);
+        const logoMesh = new THREE.Mesh(logoGeo, logoMat);
+        logoMesh.rotation.x = -Math.PI / 2;
+        logoMesh.position.set(0, lidH / 2 + 0.001, lidD / 2);
+        lidGroup.add(logoMesh);
+
+        lidPivot.add(lidGroup);
+        scene.add(lidPivot);
+
+        // === Ground shadow plane ===
+        const groundGeo = new THREE.PlaneGeometry(8, 8);
+        const groundMat = new THREE.ShadowMaterial({ opacity: 0.25 });
+        const ground = new THREE.Mesh(groundGeo, groundMat);
+        ground.rotation.x = -Math.PI / 2;
+        ground.position.y = -baseH / 2;
+        ground.receiveShadow = true;
+        scene.add(ground);
+
+        // === Set lid angle ===
+        function setLidAngle(degrees) {
+            // 0 = closed (flat on base), 90 = perpendicular, 150 = tilted back
+            // Lid extends in +Z at rest; negative X rotation opens it
+            lidPivot.rotation.x = -THREE.MathUtils.degToRad(degrees);
+        }
+
+        // === Mouse-position orbit ===
+        let orbitY = 0.35, targetOrbitY = 0.35;
+
+        window.addEventListener('mousemove', (e) => {
+            // Map mouse X from 0..windowWidth to -0.8..0.8
+            const nx = (e.clientX / window.innerWidth) * 2 - 1;
+            targetOrbitY = nx * 0.8;
+        });
+
+        // Touch: use touch X position
+        window.addEventListener('touchmove', (e) => {
+            const nx = (e.touches[0].clientX / window.innerWidth) * 2 - 1;
+            targetOrbitY = nx * 0.8;
+        }, { passive: true });
+
+        // === Resize ===
+        function resize() {
+            const w = canvas.clientWidth, h = canvas.clientHeight;
+            renderer.setSize(w, h, false);
+            camera.aspect = w / h;
+            camera.updateProjectionMatrix();
+        }
+        window.addEventListener('resize', resize);
+        resize();
+
+        // === Animate ===
+        function animate() {
+            requestAnimationFrame(animate);
+            // Smooth orbit toward target
+            orbitY += (targetOrbitY - orbitY) * 0.08;
+            const radius = 6.5;
+            camera.position.x = Math.sin(orbitY) * radius;
+            camera.position.z = Math.cos(orbitY) * radius;
+            camera.position.y = 3.5;
+            camera.lookAt(0, 0.3, 0);
+            renderer.render(scene, camera);
+        }
+        animate();
+
+        // === Slider ===
+        const slider = document.getElementById('lidSlider');
+        const angleTxt = document.getElementById('angleTxt');
+        const hint = document.getElementById('hint');
+
+        setLidAngle(110);
+
+        // Fetch GitHub stars
+        fetch('https://api.github.com/repos/ronreiter/crack')
+            .then(r => r.json())
+            .then(d => {
+                if (d.stargazers_count !== undefined) {
+                    document.getElementById('stars').textContent = d.stargazers_count;
+                }
+            }).catch(() => {});
+
+        // Audio
+        let ctx = null, buf = null, src = null, gn = null, on = false, timer = null;
+        let prevA = 110, lastT = Date.now(), sRate = 1;
+
+        async function loadAudio() {
+            ctx = new (window.AudioContext || window.webkitAudioContext)();
+            gn = ctx.createGain(); gn.connect(ctx.destination); gn.gain.value = 0;
+            const r = await fetch('crack2.m4a');
+            buf = await ctx.decodeAudioData(await r.arrayBuffer());
+        }
+
+        function play(rate) {
+            if (!ctx || !buf) return;
+            if (ctx.state === 'suspended') ctx.resume();
+            if (on) return;
+            src = ctx.createBufferSource();
+            src.buffer = buf; src.loop = true;
+            src.playbackRate.value = rate;
+            src.connect(gn);
+            gn.gain.setTargetAtTime(0.6, ctx.currentTime, 0.02);
+            src.start(); on = true;
+        }
+
+        function stop() {
+            if (!on || !gn) return;
+            gn.gain.setTargetAtTime(0, ctx.currentTime, 0.03);
+            const s = src;
+            setTimeout(() => { try { s.stop(); } catch(e){} }, 100);
+            on = false;
+        }
+
+        slider.addEventListener('input', function() {
+            const a = parseFloat(this.value);
+            const now = Date.now();
+            const dt = Math.max((now - lastT) / 1000, 0.01);
+            lastT = now;
+
+            setLidAngle(a);
+            angleTxt.textContent = Math.round(a) + '\u00B0';
+
+            const d = Math.abs(a - prevA);
+            if (d > 0.3) {
+                const vel = d / dt;
+                const target = 0.15 + vel * 0.008;
+                sRate += (target - sRate) * 0.3;
+                const r = Math.max(0.08, Math.min(4.0, sRate));
+
+                if (!ctx) { loadAudio().then(() => play(r)); }
+                else if (!on) { play(r); }
+                else if (src) {
+                    src.playbackRate.setTargetAtTime(r, ctx.currentTime, 0.05);
+                    gn.gain.setTargetAtTime(Math.min(0.8, r * 0.35), ctx.currentTime, 0.05);
+                }
+
+                hint.classList.add('active');
+                hint.textContent = 'Squeaking\u2026';
+                clearTimeout(timer);
+                timer = setTimeout(() => {
+                    stop();
+                    hint.classList.remove('active');
+                    hint.textContent = 'Drag the slider to hear the squeak';
+                }, 120);
+            }
+            prevA = a;
+        });
+    })();
     </script>
 </body>
 </html>

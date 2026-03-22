@@ -9,58 +9,22 @@
 /* Begin PBXBuildFile section */
 		AA100001000000000001 /* main.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA200001000000000001 /* main.swift */; };
 		AA100001000000000002 /* LidAngleSensor.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA200001000000000002 /* LidAngleSensor.swift */; };
-		AA100001000000000003 /* SqueakAudioEngine.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA200001000000000003 /* SqueakAudioEngine.swift */; };
+		EE100001000000000001 /* SynthAudioEngine.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE200001000000000001 /* SynthAudioEngine.swift */; };
 		AA100001000000000004 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = AA200001000000000004 /* Assets.xcassets */; };
-		AA100001000000000006 /* crack2.m4a in Resources */ = {isa = PBXBuildFile; fileRef = AA200001000000000010 /* crack2.m4a */; };
 		AA100001000000000008 /* IOKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AA200001000000000008 /* IOKit.framework */; };
 		AA100001000000000009 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA200001000000000011 /* AppDelegate.swift */; };
-		BB100001000000000001 /* badnews.m4a in Resources */ = {isa = PBXBuildFile; fileRef = BB200001000000000001 /* badnews.m4a */; };
-		BB100001000000000002 /* bahh.m4a in Resources */ = {isa = PBXBuildFile; fileRef = BB200001000000000002 /* bahh.m4a */; };
-		BB100001000000000003 /* bells.m4a in Resources */ = {isa = PBXBuildFile; fileRef = BB200001000000000003 /* bells.m4a */; };
-		BB100001000000000004 /* boing-voice.m4a in Resources */ = {isa = PBXBuildFile; fileRef = BB200001000000000004 /* boing-voice.m4a */; };
-		BB100001000000000005 /* boing.m4a in Resources */ = {isa = PBXBuildFile; fileRef = BB200001000000000005 /* boing.m4a */; };
-		BB100001000000000006 /* bubbles.m4a in Resources */ = {isa = PBXBuildFile; fileRef = BB200001000000000006 /* bubbles.m4a */; };
-		BB100001000000000007 /* cellos.m4a in Resources */ = {isa = PBXBuildFile; fileRef = BB200001000000000007 /* cellos.m4a */; };
-		BB100001000000000008 /* creaky.m4a in Resources */ = {isa = PBXBuildFile; fileRef = BB200001000000000008 /* creaky.m4a */; };
-		BB100001000000000009 /* groan.m4a in Resources */ = {isa = PBXBuildFile; fileRef = BB200001000000000009 /* groan.m4a */; };
-		BB100001000000000010 /* whistle.m4a in Resources */ = {isa = PBXBuildFile; fileRef = BB200001000000000010 /* whistle.m4a */; };
-		BB100001000000000011 /* wobble.m4a in Resources */ = {isa = PBXBuildFile; fileRef = BB200001000000000011 /* wobble.m4a */; };
-		BB100001000000000012 /* zap.m4a in Resources */ = {isa = PBXBuildFile; fileRef = BB200001000000000012 /* zap.m4a */; };
-		CC100001000000000001 /* crack3.m4a in Resources */ = {isa = PBXBuildFile; fileRef = CC200001000000000001 /* crack3.m4a */; };
-		CC100001000000000002 /* crack4.m4a in Resources */ = {isa = PBXBuildFile; fileRef = CC200001000000000002 /* crack4.m4a */; };
-		CC100001000000000003 /* crack5.m4a in Resources */ = {isa = PBXBuildFile; fileRef = CC200001000000000003 /* crack5.m4a */; };
-		CC100001000000000004 /* crack6.m4a in Resources */ = {isa = PBXBuildFile; fileRef = CC200001000000000004 /* crack6.m4a */; };
-		CC100001000000000005 /* crack7.m4a in Resources */ = {isa = PBXBuildFile; fileRef = CC200001000000000005 /* crack7.m4a */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
 		AA200001000000000001 /* main.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = main.swift; sourceTree = "<group>"; };
 		AA200001000000000002 /* LidAngleSensor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LidAngleSensor.swift; sourceTree = "<group>"; };
-		AA200001000000000003 /* SqueakAudioEngine.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SqueakAudioEngine.swift; sourceTree = "<group>"; };
+		EE200001000000000001 /* SynthAudioEngine.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SynthAudioEngine.swift; sourceTree = "<group>"; };
 		AA200001000000000004 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
-		AA200001000000000010 /* crack2.m4a */ = {isa = PBXFileReference; lastKnownFileType = audio.m4a; name = crack2.m4a; path = Sounds/crack2.m4a; sourceTree = SOURCE_ROOT; };
 		AA200001000000000006 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		AA200001000000000007 /* Crack.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = Crack.entitlements; sourceTree = "<group>"; };
 		AA200001000000000008 /* IOKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = IOKit.framework; path = System/Library/Frameworks/IOKit.framework; sourceTree = SDKROOT; };
 		AA200001000000000009 /* Crack.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Crack.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		AA200001000000000011 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
-		BB200001000000000001 /* badnews.m4a */ = {isa = PBXFileReference; lastKnownFileType = audio.m4a; name = badnews.m4a; path = Sounds/badnews.m4a; sourceTree = SOURCE_ROOT; };
-		BB200001000000000002 /* bahh.m4a */ = {isa = PBXFileReference; lastKnownFileType = audio.m4a; name = bahh.m4a; path = Sounds/bahh.m4a; sourceTree = SOURCE_ROOT; };
-		BB200001000000000003 /* bells.m4a */ = {isa = PBXFileReference; lastKnownFileType = audio.m4a; name = bells.m4a; path = Sounds/bells.m4a; sourceTree = SOURCE_ROOT; };
-		BB200001000000000004 /* boing-voice.m4a */ = {isa = PBXFileReference; lastKnownFileType = audio.m4a; name = "boing-voice.m4a"; path = "Sounds/boing-voice.m4a"; sourceTree = SOURCE_ROOT; };
-		BB200001000000000005 /* boing.m4a */ = {isa = PBXFileReference; lastKnownFileType = audio.m4a; name = boing.m4a; path = Sounds/boing.m4a; sourceTree = SOURCE_ROOT; };
-		BB200001000000000006 /* bubbles.m4a */ = {isa = PBXFileReference; lastKnownFileType = audio.m4a; name = bubbles.m4a; path = Sounds/bubbles.m4a; sourceTree = SOURCE_ROOT; };
-		BB200001000000000007 /* cellos.m4a */ = {isa = PBXFileReference; lastKnownFileType = audio.m4a; name = cellos.m4a; path = Sounds/cellos.m4a; sourceTree = SOURCE_ROOT; };
-		BB200001000000000008 /* creaky.m4a */ = {isa = PBXFileReference; lastKnownFileType = audio.m4a; name = creaky.m4a; path = Sounds/creaky.m4a; sourceTree = SOURCE_ROOT; };
-		BB200001000000000009 /* groan.m4a */ = {isa = PBXFileReference; lastKnownFileType = audio.m4a; name = groan.m4a; path = Sounds/groan.m4a; sourceTree = SOURCE_ROOT; };
-		BB200001000000000010 /* whistle.m4a */ = {isa = PBXFileReference; lastKnownFileType = audio.m4a; name = whistle.m4a; path = Sounds/whistle.m4a; sourceTree = SOURCE_ROOT; };
-		BB200001000000000011 /* wobble.m4a */ = {isa = PBXFileReference; lastKnownFileType = audio.m4a; name = wobble.m4a; path = Sounds/wobble.m4a; sourceTree = SOURCE_ROOT; };
-		BB200001000000000012 /* zap.m4a */ = {isa = PBXFileReference; lastKnownFileType = audio.m4a; name = zap.m4a; path = Sounds/zap.m4a; sourceTree = SOURCE_ROOT; };
-		CC200001000000000001 /* crack3.m4a */ = {isa = PBXFileReference; lastKnownFileType = audio.m4a; name = crack3.m4a; path = Sounds/crack3.m4a; sourceTree = SOURCE_ROOT; };
-		CC200001000000000002 /* crack4.m4a */ = {isa = PBXFileReference; lastKnownFileType = audio.m4a; name = crack4.m4a; path = Sounds/crack4.m4a; sourceTree = SOURCE_ROOT; };
-		CC200001000000000003 /* crack5.m4a */ = {isa = PBXFileReference; lastKnownFileType = audio.m4a; name = crack5.m4a; path = Sounds/crack5.m4a; sourceTree = SOURCE_ROOT; };
-		CC200001000000000004 /* crack6.m4a */ = {isa = PBXFileReference; lastKnownFileType = audio.m4a; name = crack6.m4a; path = Sounds/crack6.m4a; sourceTree = SOURCE_ROOT; };
-		CC200001000000000005 /* crack7.m4a */ = {isa = PBXFileReference; lastKnownFileType = audio.m4a; name = crack7.m4a; path = Sounds/crack7.m4a; sourceTree = SOURCE_ROOT; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -79,7 +43,6 @@
 			isa = PBXGroup;
 			children = (
 				AA400001000000000002 /* Crack */,
-				DD400001000000000001 /* Sounds */,
 				AA400001000000000003 /* Frameworks */,
 				AA400001000000000004 /* Products */,
 			);
@@ -91,37 +54,12 @@
 				AA200001000000000001 /* main.swift */,
 				AA200001000000000011 /* AppDelegate.swift */,
 				AA200001000000000002 /* LidAngleSensor.swift */,
-				AA200001000000000003 /* SqueakAudioEngine.swift */,
+				EE200001000000000001 /* SynthAudioEngine.swift */,
 				AA200001000000000004 /* Assets.xcassets */,
 				AA200001000000000006 /* Info.plist */,
 				AA200001000000000007 /* Crack.entitlements */,
 			);
 			path = Crack;
-			sourceTree = "<group>";
-		};
-		DD400001000000000001 /* Sounds */ = {
-			isa = PBXGroup;
-			children = (
-				AA200001000000000010 /* crack2.m4a */,
-				CC200001000000000001 /* crack3.m4a */,
-				CC200001000000000002 /* crack4.m4a */,
-				CC200001000000000003 /* crack5.m4a */,
-				CC200001000000000004 /* crack6.m4a */,
-				CC200001000000000005 /* crack7.m4a */,
-				BB200001000000000001 /* badnews.m4a */,
-				BB200001000000000002 /* bahh.m4a */,
-				BB200001000000000003 /* bells.m4a */,
-				BB200001000000000004 /* boing-voice.m4a */,
-				BB200001000000000005 /* boing.m4a */,
-				BB200001000000000006 /* bubbles.m4a */,
-				BB200001000000000007 /* cellos.m4a */,
-				BB200001000000000008 /* creaky.m4a */,
-				BB200001000000000009 /* groan.m4a */,
-				BB200001000000000010 /* whistle.m4a */,
-				BB200001000000000011 /* wobble.m4a */,
-				BB200001000000000012 /* zap.m4a */,
-			);
-			name = Sounds;
 			sourceTree = "<group>";
 		};
 		AA400001000000000003 /* Frameworks */ = {
@@ -199,24 +137,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				AA100001000000000004 /* Assets.xcassets in Resources */,
-				AA100001000000000006 /* crack2.m4a in Resources */,
-				CC100001000000000001 /* crack3.m4a in Resources */,
-				CC100001000000000002 /* crack4.m4a in Resources */,
-				CC100001000000000003 /* crack5.m4a in Resources */,
-				CC100001000000000004 /* crack6.m4a in Resources */,
-				CC100001000000000005 /* crack7.m4a in Resources */,
-				BB100001000000000001 /* badnews.m4a in Resources */,
-				BB100001000000000002 /* bahh.m4a in Resources */,
-				BB100001000000000003 /* bells.m4a in Resources */,
-				BB100001000000000004 /* boing-voice.m4a in Resources */,
-				BB100001000000000005 /* boing.m4a in Resources */,
-				BB100001000000000006 /* bubbles.m4a in Resources */,
-				BB100001000000000007 /* cellos.m4a in Resources */,
-				BB100001000000000008 /* creaky.m4a in Resources */,
-				BB100001000000000009 /* groan.m4a in Resources */,
-				BB100001000000000010 /* whistle.m4a in Resources */,
-				BB100001000000000011 /* wobble.m4a in Resources */,
-				BB100001000000000012 /* zap.m4a in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -230,7 +150,7 @@
 				AA100001000000000001 /* main.swift in Sources */,
 				AA100001000000000009 /* AppDelegate.swift in Sources */,
 				AA100001000000000002 /* LidAngleSensor.swift in Sources */,
-				AA100001000000000003 /* SqueakAudioEngine.swift in Sources */,
+				EE100001000000000001 /* SynthAudioEngine.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

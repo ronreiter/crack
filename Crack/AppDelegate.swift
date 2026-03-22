@@ -132,21 +132,36 @@ class AppDelegate: NSObject, NSApplicationDelegate {
 class AppState {
     var isEnabled = true {
         didSet {
-            if !isEnabled { audioEngine.stop() }
+            if !isEnabled { currentEngine.stop() }
         }
     }
     var volume: Float = 0.7
-    var selectedSound: String = "crack2" {
+    var selectedSound: String = "Knuckle Crack" {
         didSet {
             NSLog("[Crack] Switching sound to: %@", selectedSound)
-            audioEngine.loadSound(named: selectedSound)
+            currentEngine.stop()
+            if let engine = engineMap[selectedSound] {
+                currentEngine = engine
+            }
         }
     }
     var sensorUnavailable = false
     var availableSounds: [String] = []
 
+    static var synthNames: [String] {
+        let crackNames = CrackPreset.all.map { $0.name }
+        let fmNames = FMPreset.all.map { $0.name }
+        let noiseNames = NoisePreset.all.map { $0.name }
+        return crackNames + fmNames + noiseNames
+    }
+
+    func isSynthEngine(_ name: String) -> Bool {
+        return engineMap[name] != nil
+    }
+
     let lidSensor = LidAngleSensor()
-    let audioEngine = SqueakAudioEngine()
+    var engineMap: [String: CreakAudioEngine] = [:]
+    var currentEngine: CreakAudioEngine!
 
     private var timer: Timer?
     private var lastAngle: Double?
@@ -158,9 +173,22 @@ class AppState {
     private let silenceDelay: TimeInterval = 0.15
 
     init() {
+        // Build engine map — engines are created lazily on first access
+        for p in CrackPreset.all {
+            engineMap[p.name] = SynthCrackEngine(preset: p)
+        }
+        for p in FMPreset.all {
+            engineMap[p.name] = FMSynthEngine(preset: p)
+        }
+        for p in NoisePreset.all {
+            engineMap[p.name] = NoiseResonantEngine(preset: p)
+        }
+
+        let defaultName = "Haunted Door"
+        currentEngine = engineMap[defaultName]!
+        selectedSound = defaultName
         sensorUnavailable = !lidSensor.isAvailable
-        availableSounds = SqueakAudioEngine.availableSounds()
-        if availableSounds.isEmpty { availableSounds = ["crack2"] }
+        availableSounds = AppState.synthNames
         startMonitoring()
     }
 
@@ -188,7 +216,7 @@ class AppState {
         let dt = now - lastAngleTime
         guard dt > 0 else { return }
 
-        audioEngine.tick()
+        currentEngine.tick()
 
         let delta = abs(angle - prevAngle)
 
@@ -202,14 +230,14 @@ class AppState {
                 NSLog("[Crack] PLAY delta=%.4f° vel=%.3f°/s smooth=%.3f rate=%.2f", delta, instantVel, smoothedVelocity, rate)
             }
             logCounter += 1
-            audioEngine.play(rate: rate, volume: volume)
+            currentEngine.play(rate: rate, volume: volume)
         } else if now - lastChangeTime > silenceDelay {
             smoothedVelocity = 0
-            audioEngine.stop()
+            currentEngine.stop()
         }
     }
 
     private func mapVelocityToRate(_ velocity: Double) -> Float {
-        return Float(max(0.05, velocity * 0.2))
+        return Float(max(0.1, velocity * 0.4))
     }
 }
