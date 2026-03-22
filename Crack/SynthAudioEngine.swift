@@ -33,9 +33,9 @@ struct CrackPreset {
     let drive: Float                 // output saturation
     let clickMix: Float              // raw click vs filtered ratio
 
-    // Haunted Door with 2x accelerated frequencies
+    // Door with 2x accelerated frequencies
     static let all: [CrackPreset] = [
-        CrackPreset(name: "Haunted Door",
+        CrackPreset(name: "Door",
                     crackRateMultiplier: 0.2, decayRate: 0.977, gateThreshold: 0.03,
                     freqs: [140, 320, 800, 2080, 5200], qs: [3, 4, 6, 5, 4],
                     mix: [0.3, 0.3, 0.25, 0.1, 0.05], freqShift: 0.3, drive: 7.0, clickMix: 0.5),

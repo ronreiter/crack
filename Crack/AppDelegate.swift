@@ -1,4 +1,5 @@
 import AppKit
+import ServiceManagement
 
 class AppDelegate: NSObject, NSApplicationDelegate {
     var statusItem: NSStatusItem!
@@ -7,6 +8,7 @@ class AppDelegate: NSObject, NSApplicationDelegate {
     // Menu item tags
     let tagEnable = 100
     let tagAbout = 200
+    let tagStartup = 250
     let tagQuit = 300
     let tagSoundBase = 1000
 
@@ -71,6 +73,15 @@ class AppDelegate: NSObject, NSApplicationDelegate {
             menu.addItem(NSMenuItem.separator())
         }
 
+        let startupItem = NSMenuItem(title: "Start at Login", action: #selector(menuItemClicked(_:)), keyEquivalent: "")
+        startupItem.target = self
+        startupItem.tag = tagStartup
+        startupItem.isEnabled = true
+        startupItem.state = isLoginItemEnabled() ? .on : .off
+        menu.addItem(startupItem)
+
+        menu.addItem(NSMenuItem.separator())
+
         let aboutItem = NSMenuItem(title: "About Crack", action: #selector(menuItemClicked(_:)), keyEquivalent: "")
         aboutItem.target = self
         aboutItem.tag = tagAbout
@@ -101,6 +112,10 @@ class AppDelegate: NSObject, NSApplicationDelegate {
             }
             buildMenu()
 
+        case tagStartup:
+            toggleLoginItem()
+            buildMenu()
+
         case tagAbout:
             NSApp.activate(ignoringOtherApps: true)
             NSApp.orderFrontStandardAboutPanel(options: [
@@ -120,6 +135,29 @@ class AppDelegate: NSObject, NSApplicationDelegate {
                     appState.selectedSound = sounds[index]
                     buildMenu()
                 }
+            }
+        }
+    }
+
+    func isLoginItemEnabled() -> Bool {
+        if #available(macOS 13.0, *) {
+            return SMAppService.mainApp.status == .enabled
+        }
+        return false
+    }
+
+    func toggleLoginItem() {
+        if #available(macOS 13.0, *) {
+            do {
+                if SMAppService.mainApp.status == .enabled {
+                    try SMAppService.mainApp.unregister()
+                    NSLog("[Crack] Login item disabled")
+                } else {
+                    try SMAppService.mainApp.register()
+                    NSLog("[Crack] Login item enabled")
+                }
+            } catch {
+                NSLog("[Crack] Failed to toggle login item: %@", error.localizedDescription)
             }
         }
     }
@@ -184,7 +222,7 @@ class AppState {
             engineMap[p.name] = NoiseResonantEngine(preset: p)
         }
 
-        let defaultName = "Haunted Door"
+        let defaultName = "Door"
         currentEngine = engineMap[defaultName]!
         selectedSound = defaultName
         sensorUnavailable = !lidSensor.isAvailable
@@ -220,7 +258,7 @@ class AppState {
 
         let delta = abs(angle - prevAngle)
 
-        if delta > 0.001 {
+        if delta > 0.005 {
             let instantVel = delta / dt
             smoothedVelocity = smoothedVelocity * 0.6 + instantVel * 0.4
             lastChangeTime = now
